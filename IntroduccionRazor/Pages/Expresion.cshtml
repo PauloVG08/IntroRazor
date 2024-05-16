@@ -1,0 +1,68 @@
+﻿@page
+@using System.Numerics
+@model IntroduccionRazor.Pages.ExpresionModel
+
+<h1>Calcula una expresión</h1>
+
+<form method="post">
+    <label asp-for="a">Valor de a: </label><br>
+    <input type="text" asp-for="a" /><br>
+
+    <label asp-for="b">Valor de b:</label><br>
+    <input type="text" asp-for="b" /><br>
+
+    <label asp-for="x">Valor de x:</label><br>
+    <input type="text" asp-for="x" /><br>
+
+    <label asp-for="y">Valor de y:</label><br>
+    <input type="text" asp-for="y" /><br>
+
+    <label asp-for="n">Valor de n:</label><br>
+    <input type="text" asp-for="n" /><br><br />
+
+    <input type="submit" value="Calcular"><br /><br />
+</form>
+
+@{
+    <h1>El valor esperado es: </h1>
+    <h3>@Model.totalEsperado</h3>
+    <br />
+    <br />
+
+    <h1>Factorial y sumatoria: </h1>
+    int nReal = @Model.n;
+    double totalSumatorio = 0;
+    double total = 0;
+
+    for (var k = 0; k <= nReal; k++)
+    {
+        double nFactorial = 1;
+        double kFactorial = 1;
+        double nMinusKFactorial = 1;
+
+        for (double i = 1; i <= nReal; i++)
+        {
+            nFactorial *= i;
+            if (i <= k)
+            {
+                kFactorial *= i;
+            }
+            if (i <= (nReal - k))
+            {
+                nMinusKFactorial *= i;
+            }
+        }
+
+        double resultadoReal = nFactorial / (kFactorial * nMinusKFactorial);
+        totalSumatorio += resultadoReal;
+
+        double ax = (Model.a * Model.x);
+        double by = (Model.b * Model.y);
+        double res = resultadoReal * Math.Pow(ax, nReal - k) * Math.Pow(by, k);
+
+        <p>Para n = @nReal y k = @k, el resultado de la factorial es: @resultadoReal</p>
+        <p>El resultado de la fórmula es: @res</p>
+        total += res;
+    }
+    <h3>El valor total sumatorio para n = @nReal es: @total</h3>
+}

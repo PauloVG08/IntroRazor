@@ -1,0 +1,33 @@
+﻿@page
+@model IntroduccionRazor.Pages.ArreglosModel
+@{
+    //Arreglo de string
+    string[] nombres = ["Ana", "Juan", "Pedro", "María"];
+
+    //Obtenemos la posición de Pedro.
+    int i = Array.IndexOf(nombres, "Pedro") + 1;
+
+    //Longitud del arreglo
+    int len = nombres.Length;
+    string segundo = nombres[1];
+}
+
+<h3>Lista de Nombres en el arreglo.</h3>
+
+<ol>
+    @foreach(var nombre in nombres)
+    {
+        <li>@nombre</li>
+    }
+</ol>
+
+<p>El número de personas en nombres es: @len</p>
+
+<br />
+
+
+<p>La persona en la segunda posición es: @segundo</p>
+
+<br />
+
+<p>Pedro está en la posición: @i</p>

@@ -1,0 +1,99 @@
+﻿@page
+@model IntroduccionRazor.Pages.ArreglosNumModel
+@{
+    ViewData["Title"] = "Arreglos";
+}
+
+<style>
+    .horizontal-list {
+        display: flex;
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .horizontal-list li {
+        margin-right: 10px;
+    }
+</style>
+
+<h1>Números Aleatorios</h1>
+
+<ul class="horizontal-list">
+    @foreach (var numero in Model.numeros)
+    {
+        <li>@numero</li>
+    }
+</ul>
+<br />
+<br />
+
+@{
+    int suma = 0;
+    for (int i = 0; i < Model.numeros.Length; i++)
+    {
+        suma += Model.numeros[i];
+    }
+}
+
+<h1>La suma de los números del arreglo es: @suma</h1>
+
+@{
+    float promedio = (float)suma / Model.numeros.Length; // División flotante para obtener el promedio como decimal
+}
+
+<h1>La media aritmética es de: @promedio</h1>
+
+@{
+    int[] frecuencia = new int[101]; // Array para contar la frecuencia de cada número del 0 al 100
+    foreach (var numero in Model.numeros)
+    {
+        frecuencia[numero]++;
+    }
+
+    int moda = -1;
+    int maxFrecuencia = 0;
+    for (int i = 0; i <= 100; i++)
+    {
+        if (frecuencia[i] > maxFrecuencia)
+        {
+            moda = i;
+            maxFrecuencia = frecuencia[i];
+        }
+    }
+
+    if (maxFrecuencia == 1)
+    {
+        <h1>Todos los números aparecen una vez, no hay moda.</h1>
+    }
+    else
+    {
+        <h1>La moda (el número que más se repite) es: @moda</h1>
+        <h1>Se repite @maxFrecuencia veces.</h1>
+    }
+}
+
+@{
+    int[] numerosOrdenados = Model.numeros.OrderBy(n => n).ToArray();
+    float mediana = 0;
+
+    if (numerosOrdenados.Length % 2 == 0)
+    {
+        int indice1 = numerosOrdenados.Length / 2 - 1;
+        int indice2 = numerosOrdenados.Length / 2;
+        mediana = (float)(numerosOrdenados[indice1] + numerosOrdenados[indice2]) / 2;
+    }
+    else
+    {
+        int indice = numerosOrdenados.Length / 2;
+        mediana = numerosOrdenados[indice];
+    }
+}
+
+<h1>Los números ordenados son:</h1>
+<ul class="horizontal-list">
+    @foreach (var numero in numerosOrdenados)
+    {
+        <li>@numero</li>
+    }
+</ul>
+<h1>La mediana (número medio) es: @mediana</h1>

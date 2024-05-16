@@ -1,0 +1,59 @@
+﻿@page
+@model IntroduccionRazor.Pages.IMCModel
+
+<h2>Calcula tu IMC</h2>
+<form method="post">
+    <label asp-for="peso">Ingresa tu peso:</label>
+    <input type="text" asp-for="peso" name="peso" value="" placeholder="Ingresalo en kg" />
+    <br />
+
+    <label asp-for="estatura">Ingresa tu estatura:</label>
+    <input type="text" asp-for="estatura" name="estatura" value="" placeholder="Ingresala en metros" />
+    <br />
+
+    <p><input type="submit" value="Calcular" /></p>
+</form>
+
+@if (Model.Resultado != 0)
+{
+    <strong>Tu IMC de @Model.Resultado</strong>
+    <br />
+
+    @switch (Model.Resultado)
+    {
+        case float value when value < 18:
+            <strong>Tu peso es bajo</strong>
+            <br />
+            <img src="~/images/subirpeso.jpg" style="width: 250px; height: 250px;" />
+            break;
+        case float value when value >= 18 && value < 25:
+            <strong>Tu peso es normal</strong>
+            <br />
+            <img src="~/images/pesomantener.webp" style="width: 250px; height: 250px;" />
+            break;
+        case float value when value >= 25 && value < 27:
+            <strong>Tienes sobrepeso</strong>
+            <br />
+            <img src="~/images/sobrepeso.jpg" style="width: 250px; height: 250px;" />
+            break;
+        case float value when value >= 27 && value < 30:
+            <strong>Tienes obesidad grado 1</strong>
+            <br />
+            <img src="~/images/obesidad.jpg" style="width: 250px; height: 250px;" />
+            break;
+        case float value when value >= 30 && value < 40:
+            <strong>Tienes obesidad grado 2</strong>
+            <br />
+            <img src="~/images/obesidad1.jpg" style="width: 250px; height: 250px;" />
+            break;
+        default:
+            <strong>Tienes obesidad grado 3</strong>
+            <br />
+            <img src="~/images/obesidad3.jpg" style="width: 250px; height: 250px;" />
+            break;
+    }
+}
+else
+{
+    <strong>Aquí aparecerá tu resultado</strong>
+}
